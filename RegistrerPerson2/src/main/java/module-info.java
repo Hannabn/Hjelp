@@ -4,4 +4,5 @@ module programutvikling {
 
     opens programutvikling to javafx.fxml;
     exports programutvikling;
+    exports Person;
 }

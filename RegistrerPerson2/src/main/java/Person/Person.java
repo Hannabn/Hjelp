@@ -24,32 +24,23 @@ public class Person {
         this.tlf = new SimpleStringProperty(tlf);
     }
 
-    public String getNavn() { return navn.get(); }
+    public String getNavn() { return navn.getValue(); }
+    public void setNavn(String navn) { this.navn.setValue(navn); }
 
-    public void setNavn(String navn) { this.navn.set(navn); }
-
-    public int getAlder() { return alder.get(); }
-
-
+    public int getAlder() { return alder.getValue(); }
     public void setAlder(int alder) {
         if(alder < 0) {
             throw new IllegalArgumentException("Age cannot be negative");
         }
-        this.alder.set(alder);
+        this.alder.setValue(alder);
     }
 
-    public String getDato() { return dato.get(); }
+    public String getDato() { return dato.getValue(); }
+    public void setDato(String dato) { this.dato.setValue(dato); }
 
-    public void setDato(String dato) { this.dato.set(dato); }
+    public String getEpost() { return epost.getValue(); }
+    public void setEpost(String epost) { this.epost.setValue(epost); }
 
-    public String getEpost() { return epost.get(); }
-
-
-    public void setEpost(String epost) { this.epost.set(epost); }
-
-    public String getTlf() { return tlf.get(); }
-
-    public void setTlf(String tlf) { this.tlf.set(tlf); }
-
-
+    public String getTlf() { return tlf.getValue(); }
+    public void setTlf(String tlf) { this.tlf.getValue(); }
 }

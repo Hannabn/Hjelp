@@ -6,12 +6,29 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import Person.Register;
 
 public class PrimaryController implements Initializable {
+
+    @FXML
+    private TableColumn<Person, String> navnDataColumn;
+
+    @FXML
+    private TableColumn<Person, Integer> alderDataColumn;
+
+    @FXML
+    private TableColumn<Person, String> fodselDataColumn;
+
+    @FXML
+    private TableColumn<Person, String> epostDataColumn;
+
+    @FXML
+    private TableColumn<Person, String> tlfDataColumn;
 
     @FXML
     TextField txtNavn, txtAlder, txtDato, txtEpost, txtTelefon;
@@ -19,16 +36,25 @@ public class PrimaryController implements Initializable {
     @FXML
     TableView<Person> tableView;
 
-    @FXML
-    TableColumn<Person, Integer> alderDataColumn;
-
-    private DataCollection collection = new DataCollection();
-    private IntegerStringConverter intStrConverter = new IntegerStringConverter();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        collection.attachTableView(tableView);
-        alderDataColumn.setCellFactory(TextFieldTableCell.forTableColumn(intStrConverter));
+        //Visning
+        navnDataColumn.setCellValueFactory(new PropertyValueFactory<>("navn"));
+        alderDataColumn.setCellValueFactory(new PropertyValueFactory<>("alder"));
+        fodselDataColumn.setCellValueFactory(new PropertyValueFactory<>("dato"));
+        epostDataColumn.setCellValueFactory(new PropertyValueFactory<>("epost"));
+        tlfDataColumn.setCellValueFactory(new PropertyValueFactory<>("tlf"));
+
+        tableView.setItems(Register.getList());
+
+        //For editing:
+        navnDataColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        alderDataColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        fodselDataColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        epostDataColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        tlfDataColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        tableView.setEditable(true);
     }
 
     @FXML
@@ -37,7 +63,7 @@ public class PrimaryController implements Initializable {
 
         if(obj != null) {
             resetTxtFields();
-            collection.addElement(obj);
+            Register.add(obj);
         }
     }
 
